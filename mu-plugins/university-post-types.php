@@ -1,6 +1,8 @@
 <?php 
-// Event Post Type
 function university_post_types() {
+
+    // Event Post Type
+
     register_post_type('event', array(
         'supports' => array('title', 'editor', 'excerpt'),
         'rewrite' => array('slug' => 'events'),
@@ -49,6 +51,24 @@ function university_post_types() {
             'singular_name' => 'Professor'
         ),
         'menu_icon' => 'dashicons-welcome-learn-more'
+    ));
+
+    // Campus Post Type
+    
+    register_post_type('campus', array(
+        'supports' => array('title', 'editor', 'excerpt'),
+        'rewrite' => array('slug' => 'campuses'),
+        'has_archive' => true,
+        'public' => true,
+        'show_in_rest' => true,
+        'labels' => array(
+            'name' => 'Campuses',
+            'add_new' => 'Add New Campus',
+            'edit_item' => 'Edit Campus',
+            'all_items' => 'All Campuses',
+            'singular_name' => 'Campus'
+        ),
+        'menu_icon' => 'dashicons-location-alt'
     ));
 }
 
