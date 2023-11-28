@@ -46,14 +46,14 @@ class Search {
 
 	getResults() {
 		$.when(
-				$getJSON(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchField.val()), 
-				$getJSON(universityData.root_url + '/wp-json/wp/v2/pages?search=' + this.searchField.val())
+				$.getJSON(universityData.root_url + '/wp-json/wp/v2/posts?search=' + this.searchField.val()), 
+				$.getJSON(universityData.root_url + '/wp-json/wp/v2/pages?search=' + this.searchField.val())
 			).then(function(posts, pages) {
 			var combinedResults = posts[0].concat(pages[0]);
 			this.resultsDiv.html(`
 				<h2 class="search-overlay__section-title">General information</h2>
 				${combinedResults.length ? '<ul class="link-list min-list">' : '<p>No general information matches that search.</p>'}
-				${combinedResults.map(item => `<li><a href="${posts[0].link}">${posts[0].title.rendered}</a></li>`).join('')}
+				${combinedResults.map(item => `<li><a href="${posts[0].link}">${posts[0].title.rendered}</a> ${item.type = 'post' ? `by ${item.authorName}` : ''}</li>`).join('')}
 				${combinedResults.length ? '</ul>' : ''}
 			`);
 			this.isSpinnerVisible = false;
@@ -76,7 +76,7 @@ class Search {
 		this.searchOverlay.addClass("search-overlay--active");
 		$("body").addClass("body-no-scroll");
 		this.searchField.val('');
-		setTimeout(function() {this.searchField.focus();}, 301);
+		setTimeout(() => this.searchField.focus(), 301);
 		console.log("our open method just ran!");
 		this.isOverlayOpen = true;
 	}
